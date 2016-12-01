@@ -8,6 +8,3 @@ function is_prime(n)
   end
   return prime
 end
-
-print(is_prime(42))
-print(is_prime(17))
