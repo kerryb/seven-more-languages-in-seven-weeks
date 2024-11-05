@@ -1,3 +1,3 @@
 function ends_in_three(number)
-  return number == 3
+  return number % 10 == 3
 end
