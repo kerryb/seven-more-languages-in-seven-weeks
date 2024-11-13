@@ -29,4 +29,12 @@ describe("StrictTable write access", function()
     table.foo = nil
     assert.equals(nil, rawget(table, "foo"))
   end)
+
+  it("handles false values correctly (ie differently to nil)", function()
+    local table = StrictTable.new({foo = false})
+    assert.False(table.foo)
+    assert.has_error(function() table.foo = false end, "Duplicate key: foo")
+    table.bar = false
+    assert.False(table.bar)
+  end)
 end)

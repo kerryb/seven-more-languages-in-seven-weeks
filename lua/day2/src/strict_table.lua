@@ -4,11 +4,16 @@ local StrictTable = {}
 local index = {}
 
 local strict_read = function(table, key)
-  return table[index][key] or error("Invalid key: " .. key)
+  value = table[index][key]
+  if value == nil then
+    error("Invalid key: " .. key)
+  else
+    return value
+  end
 end
 
 local strict_write = function(table, key, value)
-  if value and table[index][key] then
+  if value ~= nil and table[index][key] ~= nil then
     error("Duplicate key: " .. key)
   else
     table[index][key] = value
