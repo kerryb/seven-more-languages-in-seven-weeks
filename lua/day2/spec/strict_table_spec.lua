@@ -1,7 +1,6 @@
 StrictTable = require("strict_table")
 
 describe("StrictTable read access", function()
-
   it("returns the value if the key exists", function()
     local table = StrictTable.new({foo = 42})
     assert.equals(42, table.foo)
@@ -14,7 +13,6 @@ describe("StrictTable read access", function()
 end)
 
 describe("StrictTable write access", function()
-
   it("stores the value if the key does not already exist", function()
     local table = StrictTable.new()
     table.foo = 42
