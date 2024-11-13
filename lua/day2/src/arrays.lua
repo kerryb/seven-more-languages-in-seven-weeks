@@ -1,4 +1,4 @@
-local arrays = {}
+local Arrays = {}
 
 local function append(destination, source)
   for index = 1, #source do
@@ -6,7 +6,7 @@ local function append(destination, source)
   end
 end
 
-function arrays.concatenate(array_1, array_2)
+function Arrays.concatenate(array_1, array_2)
   local result = {}
 
   append(result, array_1)
@@ -15,4 +15,4 @@ function arrays.concatenate(array_1, array_2)
   return result
 end
 
-return arrays
+return Arrays
