@@ -23,4 +23,10 @@ describe("StrictTable write access", function()
     local table = StrictTable.new({foo = 42})
     assert.has_error(function() table.foo = 0 end, "Duplicate key: foo")
   end)
+
+  it("allows keys to be deleted by setting their value to nil", function()
+    local table = StrictTable.new({foo = 42})
+    table.foo = nil
+    assert.equals(nil, rawget(table, "foo"))
+  end)
 end)

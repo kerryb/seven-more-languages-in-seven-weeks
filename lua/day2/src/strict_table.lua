@@ -8,7 +8,7 @@ local strict_read = function(table, key)
 end
 
 local strict_write = function(table, key, value)
-  if table[index][key] then
+  if value and table[index][key] then
     error("Duplicate key: " .. key)
   else
     table[index][key] = value
