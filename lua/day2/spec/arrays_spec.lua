@@ -16,4 +16,16 @@ describe("arrays.concatenate", function()
   it("concatenates two non-empty arrays", function()
     assert.same({"foo", 42, "bar", "baz", 0}, arrays.concatenate({"foo", 42, "bar"}, {"baz", 0}))
   end)
+
+  it("does not mutate the first array argument", function()
+    local array = {"foo", 42}
+    arrays.concatenate(array, {"baz", 0})
+    assert.same({"foo", 42}, array)
+  end)
+
+  it("does not mutate the second array argument", function()
+    local array = {"foo", 42}
+    arrays.concatenate({"baz", 0}, array)
+    assert.same({"foo", 42}, array)
+  end)
 end)
