@@ -15,10 +15,14 @@ function Arrays.concatenate(array_1, array_2)
   return result
 end
 
+local function is_array(value)
+  return type(value) == "table" and #value > 0 and value[#value + 1] == nil
+end
+
 -- set metatable for new global tables as they’re created (inspiration from
 -- https://charlieharvey.org.uk/page/seven_more_languages_lua_day2)
 local function set_table_metatable(table, key, value)
-  if type(value) == "table" then
+  if is_array(value) then
     setmetatable(value, {__add = Arrays.concatenate})
   end
   rawset(table, key, value)

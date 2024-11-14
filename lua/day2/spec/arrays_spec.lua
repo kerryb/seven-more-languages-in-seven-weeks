@@ -38,4 +38,24 @@ describe("Arrays, when loaded/required", function()
     _G.array_2 = {"baz", 0}
     assert.same({"foo", 42, "bar", "baz", 0}, array_1 + array_2)
   end)
+
+  it("does not interfere with numeric addition", function()
+    assert.equals(4, 2 + 2)
+  end)
+
+  it("does not attempt to concatenate tables if the first one is not an array", function()
+    -- Busted isolates globals, so force them into the actual _G table.This is
+    -- all very unpleasant.
+    _G.table_1 = {foo = 42}
+    _G.array_1 = {"baz", 0}
+    assert.has_error(function() return table_1 + array_1 end, "attempt to perform arithmetic on a table value (global 'table_1')")
+  end)
+
+  it("does not attempt to concatenate tables if the second one is not an array", function()
+    -- Busted isolates globals, so force them into the actual _G table.This is
+    -- all very unpleasant.
+    _G.table_1 = {foo = 42}
+    _G.array_1 = {"baz", 0}
+    assert.has_error(function() return array_1 + table_1 end, "attempt to perform arithmetic on a table value (global 'array_1')")
+  end)
 end)
