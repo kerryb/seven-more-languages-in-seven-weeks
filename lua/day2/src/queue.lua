@@ -7,7 +7,12 @@ function Queue:new()
   return queue
 end
 
+function Queue:add(item)
+  self.item = item
+end
+
 function Queue:remove()
+  return self.item
 end
 
 return Queue
