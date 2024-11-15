@@ -12,7 +12,9 @@ function Queue:add(item)
 end
 
 function Queue:remove()
-  return self.item
+  item = self.item
+  self.item = nil
+  return item
 end
 
 return Queue
