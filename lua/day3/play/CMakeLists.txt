@@ -1,0 +1,6 @@
+cmake_minimum_required (VERSION 3.10)
+project (play)
+find_package(Lua 5.2 REQUIRED)
+add_executable (play play.cpp)
+target_link_libraries(play ${LUA_LIBRARIES})
+target_include_directories(play PRIVATE ${LUA_INCLUDE_DIR})
