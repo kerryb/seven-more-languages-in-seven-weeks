@@ -17,9 +17,12 @@ local function duration(value)
   local quarter = 60 / tempo
   local durations = {
     -- US style (half, quarter, quarter dotted etc)
-    h = 2.0, qd = 1.5, q = 1.0, ed = 0.75, e = 0.5, s = 0.25,
-    -- UK style (semibreve, minim, dotted minim, crotchet, dotted crotchet etc)
-    sb = 4.0, dm = 3.0, m = 2.0, dc = 1.5, c = 1.0, dq = 0.75, q = 0.5, dsq = 0.375, sq = 0.25
+    h = 2, qd = 3/2, q = 1, ed = 3/4, e = 1/2, s = 1/4,
+    -- UK style (semibreve, dotted minim, minim, triplet minim, dotted
+    -- crotchet, crotchet, triplet crotchet etc). More complete than the US
+    -- ones above.
+    s = 4, dm = 3, m = 2, tm = 4/3, dc = 3/2, c = 1, tc = 2/3,
+    dq = 3/4, q = 1/2, tq = 1/3, dsq = 3/8, sq = 1/4, tsq = 1/6,
   }
   return durations[value] * quarter
 end
