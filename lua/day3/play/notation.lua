@@ -2,7 +2,8 @@ local scheduler = require "scheduler"
 
 local function note(letter, octave)
   local notes = {
-    C = 0, Cs = 1, D = 2, Ds = 3, E = 4, F = 5, Fs = 6, G = 7, Gs = 8, A = 9, As = 10, B = 11
+    C = 0, Cs = 1, Df = 1, D = 2, Ds = 3, Ef = 3, E = 4, F = 5,
+    Fs = 6, Gf = 6, G = 7, Gs = 8, Af = 8, A = 9, As = 10, Bf = 10, B = 11,
   }
 
   local notes_per_octave = 12
@@ -19,7 +20,7 @@ local function duration(value)
 end
 
 local function parse_note(s)
-  local letter, octave, value = string.match(s, "([A-Gs]+)(%d+)(%a+)")
+  local letter, octave, value = string.match(s, "([A-Gsf]+)(%d+)(%a+)")
 
   if not (letter and octave and value) then
     return nil
