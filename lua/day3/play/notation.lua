@@ -26,15 +26,21 @@ end
 
 local function parse_note(s)
   local letter, octave, value = string.match(s, "([A-Gsf]+)(%d+)(%a+)")
+  local rest_value = string.match(s, "R(%a+)")
 
-  if not (letter and octave and value) then
+  if letter and octave and value then
+    return {
+      note = note(letter, octave),
+      duration = duration(value)
+    }
+  elseif rest_value then
+    return {
+      note = "rest",
+      duration = duration(rest_value)
+    }
+  else
     return nil
   end
-
-  return {
-    note = note(letter, octave),
-    duration = duration(value)
-  }
 end
 
 local NOTE_DOWN = 0x90
@@ -42,9 +48,13 @@ local NOTE_UP = 0x80
 local VELOCITY = 0x7f
 
 local function play(note, duration)
-  midi_send(NOTE_DOWN, note, VELOCITY)
-  scheduler.wait(duration)
-  midi_send(NOTE_UP, note, VELOCITY)
+  if note == "rest" then
+    scheduler.wait(duration)
+  else
+    midi_send(NOTE_DOWN, note, VELOCITY)
+    scheduler.wait(duration)
+    midi_send(NOTE_UP, note, VELOCITY)
+  end
 end
 
 local function part(t)
