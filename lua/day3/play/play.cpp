@@ -35,7 +35,10 @@ int main(int argc, const char* argv[]) {
   luaL_openlibs(L);
   lua_pushcfunction(L, midi_send);
   lua_setglobal(L, "midi_send");
-  luaL_dofile(L, argv[1]);
+  if (luaL_dofile(L, argv[1])) {
+    fprintf(stderr, "%s\n", lua_tostring(L, -1));    
+    return 1;
+  }
 
   lua_close(L);
   return 0;
