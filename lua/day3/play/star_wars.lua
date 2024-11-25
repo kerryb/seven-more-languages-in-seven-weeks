@@ -35,6 +35,9 @@ append(treble, {
     G4c, D4m, Rc,
     Rm, F4q, E4q, D4q, C4q,
     C4tq, D4tq, E4tq, D4c, Rc, G4q, G4q,
+
+    C5q, Bf4q, Af4q, G4q, F4q, Ef4q, D4q, C4q,
+    G4c, Rc, Rm,
   })
 
 local bass_1 = {
@@ -59,6 +62,9 @@ append(bass_1, {
     Bf3c, C4m, G3q, G3q,
     A3dc, A3q, Rm,
     A3m, B3c, Rq,
+
+    Rs,
+    Rc, G3tq, G3tq, G3tq, G3c, G3tq, G3tq, G3tq,
   })
 
 local bass_2 = {
@@ -70,7 +76,7 @@ local bass_2_section = {
   A3c, G3dm,
 
   A3c, G3dm,
-  Rc, G3m, Rc
+  Rc, G3m, Rc,
 }
 
 repeat_section(bass_2, bass_2_section, 2)
@@ -81,6 +87,9 @@ append(bass_2, {
     Rs,
 
     Rc, G3m, Rc,
+    Rs,
+    Rs,
+
     Rs,
     Rs,
   })
