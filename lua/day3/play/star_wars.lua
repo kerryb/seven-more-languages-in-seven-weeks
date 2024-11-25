@@ -35,6 +35,17 @@ append(treble, {
 
     C5q, Bf4q, Af4q, G4q, F4q, Ef4q, D4q, C4q,
     G4c, Rc, Rm,
+
+    Rm, G4m,
+    F4tq, E4tq, D4tq, C5m, G4c,
+    F4tq, E4tq, D4tq, C5m, G4c,
+
+    F4tq, E4tq, F4tq, D4m, Rc,
+    Rm, G4m,
+    F4tq, E4tq, D4tq, C5m, G4c,
+
+    C5tq, Bf4tq, Af4tq, Ef5m, D5c,
+    C5c, C4tq, C4tq, C4tq, C4c, Rc,
   })
 
 local bass_1 = {
@@ -62,6 +73,17 @@ append(bass_1, {
 
     Rs,
     Rc, G3tq, G3tq, G3tq, G3c, G3tq, G3tq, G3tq,
+
+    C4m, Rm,
+    C4c, C4dm,
+    C4c, C4dm,
+
+    Bf3c, Bf3m, G3q, G3q,
+    C4m, Rm,
+    C4c, C4dm,
+
+    C4c, C4m, B3c,
+    C4c, C3tq, C3tq, C3tq, C3c, Rc,
   })
 
 local bass_2 = {
@@ -88,6 +110,17 @@ append(bass_2, {
     Rs,
 
     Rs,
+    Rs,
+
+    Rs,
+    A3c, G3dm,
+    A3c, G3dm,
+
+    Rc, G3m, Rc,
+    Rs,
+    A3c, G3dm,
+
+    Af3c, A3m, G3c,
     Rs,
   })
 
