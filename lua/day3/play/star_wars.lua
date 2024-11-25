@@ -69,7 +69,7 @@ append(bass_1, {
 
     Bf3c, C4m, G3q, G3q,
     A3dc, A3q, Rm,
-    A3m, B3c, Rq,
+    A3m, B3c, Rc,
 
     Rs,
     Rc, G3tq, G3tq, G3tq, G3c, G3tq, G3tq, G3tq,
