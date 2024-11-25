@@ -1,7 +1,4 @@
-song = require "notation"
-
-song.set_tempo(116)
-
+Song.set_tempo(116)
 
 local function append(destination, source)
   table.move(source, 1, #source, #destination + 1, destination)
@@ -94,8 +91,6 @@ append(bass_2, {
     Rs,
   })
 
-song.part(treble)
-song.part(bass_1)
-song.part(bass_2)
-
-song.go()
+Song.part(treble)
+Song.part(bass_1)
+Song.part(bass_2)

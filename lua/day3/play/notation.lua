@@ -12,19 +12,22 @@ local function note(letter, octave)
 end
 
 local tempo = 100
+local locale = "uk"
 
 local function duration(value)
-  local quarter = 60 / tempo
+  local beat = 60 / tempo
+
   local durations = {
-    -- US style (half, quarter, quarter dotted etc)
-    h = 2, qd = 3/2, q = 1, ed = 3/4, e = 1/2, s = 1/4,
-    -- UK style (semibreve, dotted minim, minim, triplet minim, dotted
-    -- crotchet, crotchet, triplet crotchet etc). More complete than the US
-    -- ones above.
-    s = 4, dm = 3, m = 2, tm = 4/3, dc = 3/2, c = 1, tc = 2/3,
-    dq = 3/4, q = 1/2, tq = 1/3, dsq = 3/8, sq = 1/4, tsq = 1/6,
+    uk = {
+      s = 4, dm = 3, m = 2, tm = 4/3, dc = 3/2, c = 1, tc = 2/3,
+      dq = 3/4, q = 1/2, tq = 1/3, dsq = 3/8, sq = 1/4, tsq = 1/6,
+    },
+    us = {
+      h = 2, qd = 3/2, q = 1, ed = 3/4, e = 1/2, s = 1/4,
+    },
   }
-  return durations[value] * quarter
+
+  return durations[locale][value] * beat
 end
 
 local function parse_note(s)
@@ -75,6 +78,10 @@ local function set_tempo(bpm)
   tempo = bpm
 end
 
+local function set_locale(value)
+  locale = value
+end
+
 local function go()
   scheduler.run()
 end
@@ -93,5 +100,6 @@ return {
   play = play,
   part = part,
   set_tempo = set_tempo,
+  set_locale = set_locale,
   go = go
 }

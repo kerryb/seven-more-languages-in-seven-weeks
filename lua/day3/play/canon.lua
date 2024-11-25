@@ -1,8 +1,7 @@
-song = require "notation"
+Song.set_tempo(50)
+Song.set_locale("us")
 
-song.set_tempo(50)
-
-song.part{
+Song.part{
   D3s,  Fs3s, A3s,  D4s,
   A2s,  Cs3s, E3s,  A3s,
   B2s,  D3s,  Fs3s, B3s,
@@ -14,7 +13,7 @@ song.part{
   A2s,  Cs3s, E3s,  A3s
 }
 
-song.part{
+Song.part{
   Fs4ed,            Fs5s,
   Fs5s, G5s,  Fs5s, E5s,
   D5ed,             D5s,
@@ -25,5 +24,3 @@ song.part{
   D5s,  C5s,  B4s,  C5s,
   A4q
 }
-
-song.go()
