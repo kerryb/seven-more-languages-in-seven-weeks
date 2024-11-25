@@ -42,6 +42,7 @@ local function parse_note(s)
       duration = duration(rest_value)
     }
   else
+    print("Unrecognised:", s)
     return nil
   end
 end
