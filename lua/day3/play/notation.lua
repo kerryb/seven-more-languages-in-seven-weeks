@@ -31,8 +31,8 @@ local function duration(value)
 end
 
 local function velocity(volume)
-  local velocities = { PP = 12, P = 25, F = 75, FF = 100 }
-  return velocities[volume] or 50
+  local velocities = { PP = 155, P = 180, F = 230, FF = 255 }
+  return velocities[volume] or 205
 end
 
 local function parse_note(s)
