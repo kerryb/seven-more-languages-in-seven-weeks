@@ -30,19 +30,25 @@ local function duration(value)
   return durations[locale][value] * beat
 end
 
+local function velocity(volume)
+  local velocities = { PP = 12, P = 25, F = 75, FF = 100 }
+  return velocities[volume] or 50
+end
+
 local function parse_note(s)
-  local letter, octave, value = string.match(s, "([A-Gsf]+)(%d+)(%a+)")
+  local letter, octave, value, volume = string.match(s, "([A-Gsf]+)(%d+)([a-z]+)([A-Z]*)")
   local rest_value = string.match(s, "R(%a+)")
 
   if letter and octave and value then
     return {
       note = note(letter, octave),
-      duration = duration(value)
+      duration = duration(value),
+      velocity = velocity(volume),
     }
   elseif rest_value then
     return {
       note = "rest",
-      duration = duration(rest_value)
+      duration = duration(rest_value),
     }
   else
     print("Unrecognised:", s)
@@ -52,22 +58,21 @@ end
 
 local NOTE_DOWN = 0x90
 local NOTE_UP = 0x80
-local VELOCITY = 0x7f
 
-local function play(note, duration)
+local function play(note, duration, velocity)
   if note == "rest" then
     scheduler.wait(duration)
   else
-    midi_send(NOTE_DOWN, note, VELOCITY)
+    midi_send(NOTE_DOWN, note, velocity)
     scheduler.wait(duration)
-    midi_send(NOTE_UP, note, VELOCITY)
+    midi_send(NOTE_UP, note, velocity)
   end
 end
 
 local function part(t)
   local function play_part()
     for i = 1, #t do
-      play(t[i].note, t[i].duration)
+      play(t[i].note, t[i].duration, t[i].velocity)
     end
   end
 
