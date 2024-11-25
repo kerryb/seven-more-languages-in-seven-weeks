@@ -2,8 +2,15 @@ song = require "notation"
 
 song.set_tempo(116)
 
+
 local function append(destination, source)
   table.move(source, 1, #source, #destination + 1, destination)
+end
+
+local function repeat_section(destination, source, times)
+  for i = 1, times do
+    append(destination, source)
+  end
 end
 
 local treble = {
@@ -18,8 +25,7 @@ local treble_section = {
   F4tq, E4tq, F4tq, D4m, Rc,
 }
 
-append(treble, treble_section)
-append(treble, treble_section)
+repeat_section(treble, treble_section, 2)
 
 append(treble, {
     Rm, F4q, E4q, D4q, C4q,
@@ -43,8 +49,7 @@ local bass_1_section = {
   Bf3c, C4m, G3q, G3q,
 }
 
-append(bass_1, bass_1_section)
-append(bass_1, bass_1_section)
+repeat_section(bass_1, bass_1_section, 2)
 
 append(bass_1, {
     A3dc, A3q, Rm,
@@ -68,8 +73,7 @@ local bass_2_section = {
   Rc, G3m, Rc
 }
 
-append(bass_2, bass_2_section)
-append(bass_2, bass_2_section)
+repeat_section(bass_2, bass_2_section, 2)
 
 append(bass_2, {
     Rs,
