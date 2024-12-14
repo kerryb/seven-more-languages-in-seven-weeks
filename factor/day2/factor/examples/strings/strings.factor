@@ -1,4 +1,4 @@
-USING: kernel ;
+USING: kernel unicode ;
 IN: examples.strings
 
-: palindrome? ( string -- ? ) dup reverse = ;
+: palindrome? ( string -- ? ) >upper dup reverse = ;
