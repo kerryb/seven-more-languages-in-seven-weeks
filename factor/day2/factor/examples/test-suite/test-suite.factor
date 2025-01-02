@@ -26,7 +26,7 @@ command-line get { "-i" } = [
 : test-all-examples ( -- )
   [ "examples" test ] with-null-writer
   test-failures get empty? [ :test-failures "" print ] unless
-  test-failures get length number>string dup "1" = [ " test" ] [ " tests" ] if append
+  test-failures get length number>string dup "1" = " test" " tests" ? append
     " out of " append
     unit-test-count get number>string append
     " failed." append print
