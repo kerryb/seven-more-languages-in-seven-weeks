@@ -13,10 +13,14 @@ SYMBOL: unit-test-count
 
 IN: examples.test-suite
 
-"-"
-[ dup "" = not ]
-  [ drop "Enter a vocabulary to test (hit return when done)" print flush readln dup ]
-  produce but-last nip
+command-line get { "-i" } = [
+  "-"
+  [ dup "" = not ]
+    [ drop "Enter a vocabulary to test (hit return when done)" print flush readln dup ]
+    produce but-last nip
+] [
+  { "examples.greeter" "examples.strings" "examples.sequences" }
+] if
   [ require ] each
 
 : test-all-examples ( -- )
