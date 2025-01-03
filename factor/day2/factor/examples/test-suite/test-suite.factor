@@ -19,7 +19,7 @@ command-line get { "-i" } = [
     [ drop "Enter a vocabulary to test (hit return when done)" print flush readln dup ]
     produce but-last nip
 ] [
-  { "examples.greeter" "examples.strings" "examples.sequences" }
+  { "examples.greeter" "examples.strings" "examples.sequences" "examples.fizzbuzz" }
 ] if
   [ require ] each
 
