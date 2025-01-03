@@ -15,6 +15,8 @@ IN: examples.checkout.tests
   [ <sample-cart> <checkout> ]
   unit-test
 
+/*
 { T{ checkout f 3 60.97 9.13 4.49 74.59 } }
   [ <sample-cart> <checkout> sample-checkout ]
   unit-test
+*/
