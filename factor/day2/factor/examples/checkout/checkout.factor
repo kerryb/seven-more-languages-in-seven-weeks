@@ -14,6 +14,7 @@ TUPLE: checkout item-count base-price taxes shipping total-price ;
 : cart-item-count ( cart -- count ) [ quantity>> ] map sum ;
 : cart-item-price ( cart-item -- price ) [ price>> ] [ quantity>> ] bi * ;
 : cart-base-price ( cart -- price ) [ cart-item-price ] map sum ;
+: discount-cart-item ( cart percentage -- cart ) 100 swap - 100 / swap [ * ] change-price ;
 
 : <base-checkout> ( item-count base-price -- checkout )
   f f f checkout boa ;
