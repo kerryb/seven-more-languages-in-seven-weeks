@@ -8,6 +8,7 @@ TUPLE: cart-item name price quantity ;
 TUPLE: checkout item-count base-price taxes shipping total-price ;
 
 : <cart-item> ( name price quantity -- cart-item ) cart-item boa ;
+: <unknown-cart-item> ( name -- cart-item ) "Unknown item" swap 1 <cart-item> ;
 
 : sum ( seq -- n ) 0 [ + ] reduce ;
 : cart-item-count ( cart -- count ) [ quantity>> ] map sum ;
