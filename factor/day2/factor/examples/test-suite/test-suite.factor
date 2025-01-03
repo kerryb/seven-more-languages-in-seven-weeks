@@ -1,5 +1,6 @@
-USING: io io.streams.null kernel math math.parser multiline namespaces
-  sequences tools.annotations tools.test vocabs ;
+USING: command-line io io.streams.null kernel math math.parser
+  multiline namespaces sequences tools.annotations tools.test
+  vocabs ;
 
 IN: tools.test
 
@@ -19,7 +20,7 @@ command-line get { "-i" } = [
     [ drop "Enter a vocabulary to test (hit return when done)" print flush readln dup ]
     produce but-last nip
 ] [
-  { "examples.greeter" "examples.strings" "examples.sequences" "examples.fizzbuzz" }
+  { "examples.greeter" "examples.strings" "examples.sequences" "examples.fizzbuzz" "examples.checkout" }
 ] if
   [ require ] each
 
