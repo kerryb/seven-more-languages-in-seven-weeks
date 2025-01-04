@@ -27,6 +27,10 @@ CONSTANT: pst-rate 0.09975
 
 : gst-pst ( price -- taxes ) [ gst-rate * ] [ pst-rate * ] bi + ;
 
+CONSTANT: vat-rate 0.20
+
+: vat ( price -- taxes ) vat-rate * ;
+
 : taxes ( checkout taxes-calc -- taxes )
   [ dup base-price>> ] dip
   call >>taxes ; inline
@@ -34,14 +38,22 @@ CONSTANT: pst-rate 0.09975
 CONSTANT: base-shipping 1.49
 CONSTANT: per-item-shipping 1.00
 
-: per-item ( checkout -- shipping ) per-item-shipping * base-shipping + ;
+: per-item ( checkout -- shipping ) item-count>> per-item-shipping * base-shipping + ;
+
+CONSTANT: free-shipping-threshold 30.00
+CONSTANT: small-order-shipping 5.00
+
+: free-over-threshold ( checkout -- shipping )
+  [ base-price>> ] [ taxes>> ] bi + free-shipping-threshold >= 0.00 small-order-shipping ? ;
 
 : shipping ( checkout shipping-calc -- shipping )
-  [ dup item-count>> ] dip
-  call >>shipping ; inline
+  dupd call >>shipping ; inline
 
 : total ( checkout -- total-price ) dup
   [ base-price>> ] [ taxes>> ] [ shipping>> ] tri + + >>total-price ;
 
 : sample-checkout ( checkout -- checkout )
   [ gst-pst ] taxes [ per-item ] shipping total ;
+
+: uk-checkout ( checkout -- checkout )
+  [ vat ] taxes [ free-over-threshold ] shipping total ;

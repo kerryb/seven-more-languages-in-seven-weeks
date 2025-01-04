@@ -15,8 +15,17 @@ IN: examples.checkout.tests
   [ <sample-cart> <checkout> ]
   unit-test
 
-/*
 { T{ checkout f 3 60.97 9.13 4.49 74.59 } }
   [ <sample-cart> <checkout> sample-checkout ]
   unit-test
-*/
+
+: <small-cart> ( -- cart ) "book" 24.99 1 <cart-item> 1array ;
+: <big-cart> ( -- cart ) "book" 25.00 1 <cart-item> 1array ;
+
+{ T{ checkout f 1 24.99 4.99 5.00 34.98 } }
+  [ <small-cart> <checkout> uk-checkout ]
+  unit-test
+
+{ T{ checkout f 1 25.00 5.00 0.00 30.00 } }
+  [ <big-cart> <checkout> uk-checkout ]
+  unit-test
