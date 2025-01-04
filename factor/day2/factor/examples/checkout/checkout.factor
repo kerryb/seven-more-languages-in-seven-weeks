@@ -14,7 +14,8 @@ TUPLE: checkout item-count base-price taxes shipping total-price ;
 : cart-item-count ( cart -- count ) [ quantity>> ] map sum ;
 : cart-item-price ( cart-item -- price ) [ price>> ] [ quantity>> ] bi * ;
 : cart-base-price ( cart -- price ) [ cart-item-price ] map sum ;
-: discount-cart-item ( cart percentage -- cart ) 100 swap - 100 / swap [ * ] change-price ;
+: discount-cart-item ( cart percentage -- cart )
+  100 swap - 100 / swap [ * >integer ] change-price ;
 
 : <base-checkout> ( item-count base-price -- checkout )
   f f f checkout boa ;
@@ -25,26 +26,26 @@ TUPLE: checkout item-count base-price taxes shipping total-price ;
 CONSTANT: gst-rate 0.05
 CONSTANT: pst-rate 0.09975
 
-: gst-pst ( price -- taxes ) [ gst-rate * ] [ pst-rate * ] bi + ;
+: gst-pst ( price -- taxes ) [ gst-rate * ] [ pst-rate * ] bi + >integer ;
 
 CONSTANT: vat-rate 0.20
 
-: vat ( price -- taxes ) vat-rate * ;
+: vat ( price -- taxes ) vat-rate * >integer ;
 
 : taxes ( checkout taxes-calc -- taxes )
   [ dup base-price>> ] dip
   call >>taxes ; inline
 
-CONSTANT: base-shipping 1.49
-CONSTANT: per-item-shipping 1.00
+CONSTANT: base-shipping 149
+CONSTANT: per-item-shipping 100
 
-: per-item ( checkout -- shipping ) item-count>> per-item-shipping * base-shipping + ;
+: per-item ( checkout -- shipping ) item-count>> per-item-shipping * base-shipping + >integer ;
 
-CONSTANT: free-shipping-threshold 30.00
-CONSTANT: small-order-shipping 5.00
+CONSTANT: free-shipping-threshold 3000
+CONSTANT: small-order-shipping 500
 
 : free-over-threshold ( checkout -- shipping )
-  [ base-price>> ] [ taxes>> ] bi + free-shipping-threshold >= 0.00 small-order-shipping ? ;
+  [ base-price>> ] [ taxes>> ] bi + free-shipping-threshold >= 0 small-order-shipping ? ;
 
 : shipping ( checkout shipping-calc -- shipping )
   dupd call >>shipping ; inline
