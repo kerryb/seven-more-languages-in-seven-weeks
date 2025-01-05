@@ -1,23 +1,20 @@
 USING: combinators io kernel math math.parser random ;
 IN: examples.numberguess
 
-: report ( answer guess -- answer guess )
-  2dup < [ "Too high!" ] [ "Too low!" ] if print
+: hint ( answer guess -- hint )
+  < "Too high!" "Too low!" ?
 ;
 
-: get-guess ( answer -- answer guess ) 
-  "Please guess:" print flush
-  readln string>number
-;
+: correct? ( answer guess -- ? ) = ;
 
-: correct? ( answer guess -- answer guess ? ) 2dup = ;
-
-: main ( -- )
+:: play ( get-guess show-message -- )
   100 random
-  get-guess
-  [ correct? ] [ report drop get-guess ] until
-  "Correct!" print
-  [ drop ] bi@
+  get-guess call
+  [ 2dup correct? ] [
+    2dup hint show-message call
+    drop get-guess call
+  ] until
+  "Correct!" show-message call
+  2drop
+  inline
 ;
-
-MAIN: main
