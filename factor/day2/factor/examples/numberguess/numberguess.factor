@@ -1,4 +1,4 @@
-USING: combinators io kernel math math.parser random ;
+USING: kernel math random ;
 IN: examples.numberguess
 
 : hint ( answer guess -- hint )

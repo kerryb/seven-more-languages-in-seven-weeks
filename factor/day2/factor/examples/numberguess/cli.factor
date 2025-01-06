@@ -1,4 +1,4 @@
-USING: io math.parser examples.numberguess ;
+USING: examples.numberguess io math.parser ;
 IN: examples.numberguess.cli
 
 : show-message ( message -- ) print ;
