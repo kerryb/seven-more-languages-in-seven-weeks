@@ -1,21 +1,22 @@
-USING: accessors examples.numberguess kernel io
-  ui ui.gadgets ui.gadgets.labels ui.gadgets.editors
-  ui.gadgets.packs ui.gadgets.borders ui.gadgets.alerts
+USING: accessors examples.numberguess io kernel namespaces ui
+  ui.gadgets ui.gadgets.alerts ui.gadgets.borders
+  ui.gadgets.editors ui.gadgets.labels ui.gadgets.packs
+  math.parser
   ;
 IN: examples.numberguess.gui
 
-: show-message ( message -- ) drop ;
-: get-guess ( -- guess ) 42 ;
+SYMBOL: answer
 
-: init ( -- gadget )
+: <numberguess-gadget> ( -- gadget )
   <pile> { 5 5 } >>gap
     <shelf> { 5 5 } >>gap
       "Guess a number:" <label> add-gadget
-      [ [ ] swap alert ] <action-field> add-gadget
+      [ string>number answer get-global swap hint [ ] swap alert ] <action-field> add-gadget
       add-gadget
     "" <label> add-gadget
   ;
 
 MAIN-WINDOW: numberguess { { title "Number Guess" } }
-  init { 10 10 } <border> >>gadgets
+  init answer set-global
+  <numberguess-gadget> { 10 10 } <border> >>gadgets
   ;
