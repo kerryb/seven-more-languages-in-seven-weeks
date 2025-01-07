@@ -1,3 +1,5 @@
+/* Run with `factor -run="examples.numberguess.gui"` */
+
 USING: examples.numberguess io math.parser ;
 IN: examples.numberguess.cli
 
