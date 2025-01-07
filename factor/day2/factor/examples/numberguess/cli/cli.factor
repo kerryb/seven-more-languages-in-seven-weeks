@@ -11,7 +11,14 @@ IN: examples.numberguess.cli
 ;
 
 : main ( -- )
-  [ get-guess ] [ show-message ] play
+  init
+  get-guess
+  [ 2dup correct? ] [
+    2dup hint show-message
+    drop get-guess
+  ] until
+  "Correct!" show-message
+  2drop
 ;
 
 MAIN: main
