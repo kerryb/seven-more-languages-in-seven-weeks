@@ -25,7 +25,21 @@ lines in the repl.
 
 ### Types reported differently
 
-the book shows `[1,2] : [number]`, but I get [1,2] : List number
+The book shows `[1,2] : [number]`, but I get `[1,2] : List number`
+
+Later on the book has:
+
+```elm
+> List.filter (\x -> x < 3) [1..20]
+[1,2] : List comparable
+```
+
+But that’s now:
+
+```elm
+> List.filter (\x -> x < 3) (List.range 1 20)
+[1,2] : List Int
+```
 
 ### Records
 
@@ -52,3 +66,13 @@ You can’t remove fields either:
 ```elm
 colorAndPosition = { homeWhiteQueen - piece } -- DOES NOT WORK
 ```
+
+### Ranges
+
+The `[a..b]` syntax has been replaced by `List.range a b`.
+
+### Compile-time rejection of incomplete functions
+
+The book describes a potential runtime error from defining functions that don’t
+match all possible patterns (eg `first (head::tail) = head`), but this is now
+rejected, with a suggestion to use a case statement instead.
