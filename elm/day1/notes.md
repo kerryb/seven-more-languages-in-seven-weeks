@@ -76,3 +76,18 @@ The `[a..b]` syntax has been replaced by `List.range a b`.
 The book describes a potential runtime error from defining functions that don’t
 match all possible patterns (eg `first (head::tail) = head`), but this is now
 rejected, with a suggestion to use a case statement instead.
+
+## Exercises
+
+How do you compile an Elm program?
+
+`elm make <filename>`
+
+Where would you go for Elm support?
+
+https://elm-lang.org/community
+
+```elm
+product list = List.foldl (*) 1 list
+eastings point_list = List.map (\point -> point.x) point_list
+```
