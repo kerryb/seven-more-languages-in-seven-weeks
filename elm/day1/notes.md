@@ -79,6 +79,8 @@ rejected, with a suggestion to use a case statement instead.
 
 ## Exercises
 
+### Easy
+
 How do you compile an Elm program?
 
 `elm make <filename>`
@@ -90,4 +92,94 @@ https://elm-lang.org/community
 ```elm
 product list = List.foldl (*) 1 list
 eastings point_list = List.map (\point -> point.x) point_list
+```
+
+```elm
+{ name = "Wallace", age = 50, address = {
+  number = 62, street = "West Wallaby Street", city = "Wigan", country = "UK" }
+}
+```
+
+Seems easier to use a record (as above), because all the field names and types
+are inferred automatically.
+
+### Medium
+
+```elm
+> multiply a b = a * b
+<function> : number -> number -> number
+> (multiply 6) 8
+48 : number
+```
+
+```elm
+> gromit = { name = "Gromit", age = 5, address = { number = 62, street = "West Wallaby Street", city = "Wigan", country = "UK" } }
+{ address = { city = "Wigan", country = "UK", number = 62, street = "West Wallaby Street" }, age = 5, name = "Gromit" }
+    : { address :
+            { city : String, country : String, number : number, street : String }
+      , age : number1
+      , name : String
+      }
+
+> feathers = { name = "Feathers McGraw", age = 20, address = { number = 42, street = "The Zoo", city = "Wigan", country = "UK" } }
+{ address = { city = "Wigan", country = "UK", number = 42, street = "The Zoo" }, age = 20, name = "Feathers McGraw" }
+    : { address :
+            { city : String, country : String, number : number, street : String }
+      , age : number1
+      , name : String
+      }
+
+> people = [wallace, gromit, feathers]
+[{ address = { city = "Wigan", country = "UK", number = 62, street = "West Wallaby Street" }, age = 50, name = "Wallace" },{ address = { city = "Wigan", country = "UK", number = 62, street = "West Wallaby Street" }, age = 5, name = "Gromit" },{ address = { city = "Wigan", country = "UK", number = 42, street = "The Zoo" }, age = 20, name = "Feathers McGraw" }]
+    : List
+          { address :
+                { city : String, country : String, number : number, street : String }
+          , age : number1
+          , name : String
+          }
+
+> older_than_16 list = List.filter (\person -> person.age > 16) list
+<function> : List { a | age : number } -> List { a | age : number }
+
+> older_than_16 people
+[{ address = { city = "Wigan", country = "UK", number = 62, street = "West Wallaby Street" }, age = 50, name = "Wallace" },{ address = { city = "Wigan", country = "UK", number = 42, street = "The Zoo" }, age = 20, name = "Feathers McGraw" }]
+    : List
+          { address :
+                { city : String, country : String, number : number1, street : String }
+          , age : number
+          , name : String
+          }
+```
+
+### Hard
+
+```elm
+> wallace = { name = "Wallace", age = (Just 50)}
+{ age = Just 50, name = "Wallace" }
+    : { age : Maybe number, name : String }
+
+> gromit = { name = "Gromit", age = (Just 8)}
+{ age = Just 8, name = "Gromit" }
+    : { age : Maybe number, name : String }
+
+> feathers = { name = "Feathers McGraw", age = Nothing}
+{ age = Nothing, name = "Feathers McGraw" }
+    : { age : Maybe a, name : String }
+
+> people = [wallace, gromit, feathers]
+[{ age = Just 50, name = "Wallace" },{ age = Just 8, name = "Gromit" },{ age = Nothing, name = "Feathers McGraw" }]
+    : List { age : Maybe number, name : String }
+
+> older_than_16 list = List.filter (\person ->
+|   case person.age of
+|   Nothing -> False
+|   Just age -> age > 16
+|   ) list
+|
+<function>
+    : List { a | age : Maybe number } -> List { a | age : Maybe number }
+
+> older_than_16 people
+[{ age = Just 50, name = "Wallace" }]
+    : List { age : Maybe number, name : String }
 ```
