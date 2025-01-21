@@ -10,6 +10,8 @@ This doesn’t work any more:
      | otherwise -> "just right" -- DOES NOT WORK
 ```
 
+You can nest ifs, although it’s ugly:
+
 ```elm
 if x < 0 then
     "too small"
@@ -69,7 +71,7 @@ colorAndPosition = { homeWhiteQueen - piece } -- DOES NOT WORK
 
 ### Ranges
 
-The `[a..b]` syntax has been replaced by `List.range a b`.
+The `[a..b]` syntactic sugar has been replaced by `List.range a b`.
 
 ### Compile-time rejection of incomplete functions
 
@@ -77,7 +79,7 @@ The book describes a potential runtime error from defining functions that don’
 match all possible patterns (eg `first (head::tail) = head`), but this is now
 rejected, with a suggestion to use a case statement instead.
 
-## Exercises
+## Exercises
 
 ### Easy
 
@@ -108,6 +110,7 @@ are inferred automatically.
 ```elm
 > multiply a b = a * b
 <function> : number -> number -> number
+
 > (multiply 6) 8
 48 : number
 ```
