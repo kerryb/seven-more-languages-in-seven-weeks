@@ -17,7 +17,7 @@ main =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( Position 0 0, Cmd.none )
+    ( { position = (Position 0 0) }, Cmd.none )
 
 
 
@@ -29,7 +29,7 @@ type alias Position =
 
 
 type alias Model =
-    Position
+    { position : Position }
 
 
 
@@ -44,7 +44,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case ( msg, model ) of
         ( MouseMoved position, _ ) ->
-            ( position, Cmd.none )
+            ( { model | position = position }, Cmd.none )
 
 
 
@@ -70,7 +70,7 @@ positionDecoder =
 view : Model -> Html Msg
 view model =
     div []
-        [ text (positionToString model) ]
+        [ text (positionToString model.position) ]
 
 
 positionToString : Position -> String
