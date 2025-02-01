@@ -17,7 +17,12 @@ main =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( { position = (Position 0 0) }, Cmd.none )
+    (
+      { position = (Position 0 0)
+      , mouseDown = False
+      }
+    , Cmd.none
+    )
 
 
 
@@ -29,7 +34,9 @@ type alias Position =
 
 
 type alias Model =
-    { position : Position }
+    { position : Position
+    , mouseDown : Bool
+    }
 
 
 
@@ -38,13 +45,19 @@ type alias Model =
 
 type Msg
     = MouseMoved Position
+    | MouseDown
+    | MouseUp
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case ( msg, model ) of
         ( MouseMoved position, _ ) ->
-            ( { model | position = position }, Cmd.none )
+          ( { model | position = position }, Cmd.none )
+        ( MouseDown, _ ) ->
+          ( { model | mouseDown = True }, Cmd.none )
+        ( MouseUp, _ ) ->
+          ( { model | mouseDown = False }, Cmd.none )
 
 
 
@@ -53,7 +66,11 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions _ =
+  Sub.batch [
     Browser.Events.onMouseMove (JD.map MouseMoved positionDecoder)
+  , Browser.Events.onMouseDown (JD.succeed MouseDown)
+  , Browser.Events.onMouseUp (JD.succeed MouseUp)
+  ]
 
 
 positionDecoder : JD.Decoder Position
@@ -70,9 +87,17 @@ positionDecoder =
 view : Model -> Html Msg
 view model =
     div []
-        [ text (positionToString model.position) ]
+        [ text (positionToString model.position)
+        , text " "
+        , text (mouseDownToString model.mouseDown)
+        ]
 
 
 positionToString : Position -> String
 positionToString position =
     "(" ++ String.fromInt position.x ++ ", " ++ String.fromInt position.y ++ ")"
+    
+
+mouseDownToString : Bool -> String
+mouseDownToString mouseDown = if mouseDown then "down" else "up"
+
