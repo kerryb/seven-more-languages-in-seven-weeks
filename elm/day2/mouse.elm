@@ -20,6 +20,7 @@ init _ =
     (
       { position = (Position 0 0)
       , mouseDown = False
+      , clickedAt = []
       }
     , Cmd.none
     )
@@ -36,6 +37,7 @@ type alias Position =
 type alias Model =
     { position : Position
     , mouseDown : Bool
+    , clickedAt : List Position
     }
 
 
@@ -57,7 +59,10 @@ update msg model =
         ( MouseDown, _ ) ->
           ( { model | mouseDown = True }, Cmd.none )
         ( MouseUp, _ ) ->
-          ( { model | mouseDown = False }, Cmd.none )
+          ( { model
+            | mouseDown = False
+            , clickedAt = model.position :: model.clickedAt
+            }, Cmd.none )
 
 
 
@@ -90,14 +95,18 @@ view model =
         [ text (positionToString model.position)
         , text " "
         , text (mouseDownToString model.mouseDown)
-        ]
+        , ul [] (clickedAtToListItems model.clickedAt)
+    ]
 
 
 positionToString : Position -> String
 positionToString position =
     "(" ++ String.fromInt position.x ++ ", " ++ String.fromInt position.y ++ ")"
     
-
 mouseDownToString : Bool -> String
 mouseDownToString mouseDown = if mouseDown then "down" else "up"
 
+clickedAtToListItems : List Position -> List (Html msg)
+clickedAtToListItems clickedAtList = List.map
+  ( \clickedAt -> li [] [ text ( "Clicked at " ++ ( positionToString clickedAt ) ) ] )
+  clickedAtList
