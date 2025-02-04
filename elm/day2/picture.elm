@@ -97,7 +97,13 @@ view model =
         [ circle
             [ cx (String.fromFloat (model.position.x * 100))
             , cy (String.fromFloat (model.position.y * 100))
-            , r "1"
+            , r
+                (if model.mouseDown then
+                    "5"
+
+                 else
+                    "1"
+                )
             ]
             []
         ]
