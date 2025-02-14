@@ -13,4 +13,8 @@ defmodule Day1.Lists do
   defp do_max([], acc), do: acc
   defp do_max([head | tail], acc) when head > acc, do: do_max(tail, head)
   defp do_max([_head | tail], acc), do: do_max(tail, acc)
+
+  def word_count(list), do: do_wc(list, [])
+  defp do_wc([], acc), do: acc
+  defp do_wc([head | tail], acc), do: do_wc(tail, Keyword.update(acc, head, 1, &(&1 + 1)))
 end

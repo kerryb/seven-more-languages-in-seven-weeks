@@ -26,4 +26,16 @@ defmodule Day1.ListsTest do
       assert_raise ArgumentError, "Empty list", fn -> Day1.Lists.max([]) end
     end
   end
+
+  describe "Day1.Lists.word_count/1" do
+    test "returns a keyword list of atoms to occurrence counts" do
+      # This is non-idiomatic Elixir, and would usually be a Map.
+      assert Day1.Lists.word_count([:to, :be, :or, :not, :to, :be]) == [
+               to: 2,
+               be: 2,
+               or: 1,
+               not: 1
+             ]
+    end
+  end
 end
