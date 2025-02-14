@@ -16,4 +16,14 @@ defmodule Day1.ListsTest do
       assert_raise ArgumentError, "Empty list", fn -> Day1.Lists.min([]) end
     end
   end
+
+  describe "Day1.Lists.max/1" do
+    test "returns the maximum value of a list" do
+      assert Day1.Lists.max([2, 4, 1, 3]) == 4
+    end
+
+    test "raises an exception for an empty list" do
+      assert_raise ArgumentError, "Empty list", fn -> Day1.Lists.max([]) end
+    end
+  end
 end
