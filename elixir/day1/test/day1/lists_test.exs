@@ -7,23 +7,23 @@ defmodule Day1.ListsTest do
     end
   end
 
-  describe "Day1.Lists.min/1" do
-    test "returns the minimum value of a list" do
-      assert Day1.Lists.min([4, 2, 1, 3]) == 1
+  describe "Day1.Lists.minimum/1" do
+    test "returns the minimumimum value of a list" do
+      assert Day1.Lists.minimum([4, 2, 1, 3]) == 1
     end
 
     test "raises an exception for an empty list" do
-      assert_raise ArgumentError, "Empty list", fn -> Day1.Lists.min([]) end
+      assert_raise ArgumentError, "Empty list", fn -> Day1.Lists.minimum([]) end
     end
   end
 
-  describe "Day1.Lists.max/1" do
-    test "returns the maximum value of a list" do
-      assert Day1.Lists.max([2, 4, 1, 3]) == 4
+  describe "Day1.Lists.maximum/1" do
+    test "returns the maximumimum value of a list" do
+      assert Day1.Lists.maximum([2, 4, 1, 3]) == 4
     end
 
     test "raises an exception for an empty list" do
-      assert_raise ArgumentError, "Empty list", fn -> Day1.Lists.max([]) end
+      assert_raise ArgumentError, "Empty list", fn -> Day1.Lists.maximum([]) end
     end
   end
 
