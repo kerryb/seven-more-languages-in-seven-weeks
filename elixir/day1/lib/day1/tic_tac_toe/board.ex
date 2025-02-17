@@ -1,5 +1,6 @@
 defmodule Day1.TicTacToe.Board do
-  defstruct [:nw, :n, :ne, :w, :c, :e, :sw, :s, :se]
+  @positions [:nw, :n, :ne, :w, :c, :e, :sw, :s, :se]
+  defstruct @positions
 
   def lines do
     [
@@ -12,6 +13,10 @@ defmodule Day1.TicTacToe.Board do
       [:nw, :c, :se],
       [:ne, :c, :sw]
     ]
+  end
+
+  def available(board) do
+    Enum.reject(@positions, &Map.get(board, &1))
   end
 
   def play(board, position, player) do

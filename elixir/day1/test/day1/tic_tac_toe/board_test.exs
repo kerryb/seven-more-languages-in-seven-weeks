@@ -17,6 +17,19 @@ defmodule Day1.TicTacToe.BoardTest do
     end
   end
 
+  describe "Day1.TicTacToe.Board.available/1" do
+    test "returns the positions available to play in" do
+      board =
+        board("""
+        xo.
+        ox.
+        oox
+        """)
+
+      assert Board.available(board) == [:ne, :e]
+    end
+  end
+
   describe "Day1.TicTacToe.Board.play/3" do
     test "makes a mark in the specified positions" do
       board =
@@ -74,7 +87,11 @@ defmodule Day1.TicTacToe.BoardTest do
         string
         |> String.replace(~r/\s+/, "")
         |> String.codepoints()
-        |> Enum.map(&String.to_atom/1)
+        |> Enum.map(fn
+          "x" -> :x
+          "o" -> :o
+          _ -> nil
+        end)
 
       %Board{nw: nw, n: n, ne: ne, w: w, c: c, e: e, sw: sw, s: s, se: se}
     end
