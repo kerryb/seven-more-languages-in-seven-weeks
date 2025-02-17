@@ -14,6 +14,10 @@ defmodule Day1.TicTacToe.Board do
     ]
   end
 
+  def play(board, position, player) do
+    Map.put(board, position, player)
+  end
+
   def state(board, player) do
     Enum.reduce_while(lines(), :playing, fn line, _acc -> check_line(board, line, player) end)
   end

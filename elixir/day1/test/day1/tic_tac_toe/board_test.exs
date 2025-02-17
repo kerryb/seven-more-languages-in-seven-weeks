@@ -17,13 +17,31 @@ defmodule Day1.TicTacToe.BoardTest do
     end
   end
 
+  describe "Day1.TicTacToe.Board.play/3" do
+    test "makes a mark in the specified positions" do
+      board =
+        board("""
+        xo.
+        ox.
+        oxo
+        """)
+
+      assert Board.play(board, :ne, :x) ==
+               board("""
+               xox
+               ox.
+               oxo
+               """)
+    end
+  end
+
   describe "Day1.TicTacToe.Board.state/2" do
     test "returns :win if the current player has a line" do
       board =
         board("""
-        XO.
-        OX.
-        OOX
+        xo.
+        ox.
+        oox
         """)
 
       assert Board.state(board, :x) == :win
@@ -32,9 +50,9 @@ defmodule Day1.TicTacToe.BoardTest do
     test "returns :lose if the other player has a line" do
       board =
         board("""
-        XO.
-        OX.
-        OOX
+        xo.
+        ox.
+        oox
         """)
 
       assert Board.state(board, :o) == :lose
@@ -43,9 +61,9 @@ defmodule Day1.TicTacToe.BoardTest do
     test "returns :playing if neither player has a line" do
       board =
         board("""
-        XO.
-        OX.
-        OXO
+        xo.
+        ox.
+        oxo
         """)
 
       assert Board.state(board, :o) == :playing
@@ -56,7 +74,7 @@ defmodule Day1.TicTacToe.BoardTest do
         string
         |> String.replace(~r/\s+/, "")
         |> String.codepoints()
-        |> Enum.map(&(&1 |> String.downcase() |> String.to_atom()))
+        |> Enum.map(&String.to_atom/1)
 
       %Board{nw: nw, n: n, ne: ne, w: w, c: c, e: e, sw: sw, s: s, se: se}
     end
