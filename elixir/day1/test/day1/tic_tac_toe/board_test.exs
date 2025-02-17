@@ -14,6 +14,17 @@ defmodule Day1.TicTacToe.BoardTest do
       assert Board.state(board, :X) == :win
     end
 
+    test "returns :lose if the other player has a line" do
+      board =
+        board("""
+        XO.
+        OX.
+        OOX
+        """)
+
+      assert Board.state(board, :O) == :lose
+    end
+
     defp board(string) do
       [nw, n, ne, w, c, e, sw, s, se] =
         string
