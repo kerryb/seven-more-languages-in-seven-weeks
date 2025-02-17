@@ -1,5 +1,6 @@
 defmodule Day1.TicTacToe.BoardTest do
   use ExUnit.Case, async: true
+
   alias Day1.TicTacToe.Board
 
   describe "Day1.TicTacToe.Board.lines/0" do

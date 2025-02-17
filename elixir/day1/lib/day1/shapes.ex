@@ -1,4 +1,5 @@
 defmodule Day1.Shapes do
+  @moduledoc false
   @type point :: {x :: float(), y :: float()}
   @type line :: {start :: point(), stop :: point()}
   @type circle :: {centre :: point(), radius :: float()}

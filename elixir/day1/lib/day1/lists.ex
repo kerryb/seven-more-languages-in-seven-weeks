@@ -1,4 +1,5 @@
 defmodule Day1.Lists do
+  @moduledoc false
   def size([]), do: 0
   def size([_head | tail]), do: 1 + size(tail)
 
@@ -17,6 +18,5 @@ defmodule Day1.Lists do
   def word_count(list), do: word_count(list, [])
   defp word_count([], acc), do: acc
 
-  defp word_count([head | tail], acc),
-    do: word_count(tail, Keyword.update(acc, head, 1, &(&1 + 1)))
+  defp word_count([head | tail], acc), do: word_count(tail, Keyword.update(acc, head, 1, &(&1 + 1)))
 end

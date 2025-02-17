@@ -1,4 +1,5 @@
 defmodule Day1.TicTacToe.Board do
+  @moduledoc false
   @positions [:nw, :n, :ne, :w, :c, :e, :sw, :s, :se]
   defstruct @positions
 
