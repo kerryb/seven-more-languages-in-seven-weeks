@@ -1,6 +1,8 @@
 defmodule Day1.TicTacToe.BoardTest do
   use ExUnit.Case, async: true
 
+  import Day1.TicTacToe.TestHelper
+
   alias Day1.TicTacToe.Board
 
   describe "Day1.TicTacToe.Board.lines/0" do
@@ -81,20 +83,6 @@ defmodule Day1.TicTacToe.BoardTest do
         """)
 
       assert Board.state(board, :o) == :playing
-    end
-
-    defp board(string) do
-      [nw, n, ne, w, c, e, sw, s, se] =
-        string
-        |> String.replace(~r/\s+/, "")
-        |> String.codepoints()
-        |> Enum.map(fn
-          "x" -> :x
-          "o" -> :o
-          _ -> nil
-        end)
-
-      %Board{nw: nw, n: n, ne: ne, w: w, c: c, e: e, sw: sw, s: s, se: se}
     end
   end
 end
