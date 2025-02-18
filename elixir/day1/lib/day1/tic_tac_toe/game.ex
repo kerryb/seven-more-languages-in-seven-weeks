@@ -3,7 +3,7 @@ defmodule Day1.TicTacToe.Game do
   alias Day1.TicTacToe.Board
 
   def best_move(board, player) do
-    win(board, player) || win(board, opponent(player))
+    win(board, player) || win(board, opponent(player)) || random_move(board)
   end
 
   defp win(board, player) do
@@ -13,6 +13,10 @@ defmodule Day1.TicTacToe.Game do
       {position, _state} -> position
       _ -> nil
     end
+  end
+
+  defp random_move(board) do
+    board |> Board.available() |> Enum.random()
   end
 
   defp opponent(:x), do: :o

@@ -27,5 +27,16 @@ defmodule Day1.TicTacToe.GameTest do
 
       assert Game.best_move(board, :o) == :ne
     end
+
+    test "Plays any valid move otherwise" do
+      board =
+        board("""
+        xxo
+        o.x
+        xo.
+        """)
+
+      assert Game.best_move(board, :o) in [:c, :se]
+    end
   end
 end
