@@ -3,23 +3,13 @@ defmodule Day1.TicTacToe.Game do
   alias Day1.TicTacToe.Board
 
   def best_move(board, player) do
-    win(board, player) || block(board, player)
+    win(board, player) || win(board, opponent(player))
   end
 
   defp win(board, player) do
     moves = board |> Board.available() |> Map.new(&{&1, Board.play(board, &1, player)})
 
     case Enum.find(moves, fn {_position, move} -> Board.state(move, player) == :win end) do
-      {position, _state} -> position
-      _ -> nil
-    end
-  end
-
-  defp block(board, player) do
-    opponent = opponent(player)
-    moves = board |> Board.available() |> Map.new(&{&1, Board.play(board, &1, opponent)})
-
-    case Enum.find(moves, fn {_position, move} -> Board.state(move, opponent) == :win end) do
       {position, _state} -> position
       _ -> nil
     end
