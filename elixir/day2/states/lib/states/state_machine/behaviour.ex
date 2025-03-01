@@ -1,4 +1,4 @@
-defmodule States.StateMachine.Behavior do
+defmodule States.StateMachine.Behaviour do
   @moduledoc false
   def fire(context, event) do
     activate(%{context | state: event[:to]}, event)

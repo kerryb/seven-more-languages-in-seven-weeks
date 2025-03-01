@@ -1,6 +1,6 @@
 defmodule States.VideoStore.Concrete do
   @moduledoc false
-  import States.StateMachine.Behavior
+  import States.StateMachine.Behaviour
 
   alias States.VideoStore
 

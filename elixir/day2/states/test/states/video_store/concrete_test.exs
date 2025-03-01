@@ -1,8 +1,8 @@
 defmodule States.VideoStore.ConcreteTest do
   use ExUnit.Case, async: true
 
+  alias States.Video
   alias States.VideoStore.Concrete
-  alias States.VideoStore.Video
 
   describe "States.VideoStore.Concrete.rent/1" do
     test "sets the state to :rented" do
