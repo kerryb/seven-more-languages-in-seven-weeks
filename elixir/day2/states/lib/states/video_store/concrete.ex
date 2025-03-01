@@ -1,6 +1,9 @@
 defmodule States.VideoStore.Concrete do
-  alias States.VideoStore
+  @moduledoc false
   import States.StateMachine.Behavior
+
+  alias States.VideoStore
+
   def rent(video), do: fire(state_machine(), video, :rent)
   def return(video), do: fire(state_machine(), video, :return)
   def lose(video), do: fire(state_machine(), video, :lose)

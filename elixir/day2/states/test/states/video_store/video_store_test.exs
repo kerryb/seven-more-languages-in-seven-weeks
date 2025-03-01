@@ -1,7 +1,8 @@
 defmodule States.VideoStore.VideoStoreTest do
-  alias States.VideoStore.Video
-  alias States.VideoStore
   use ExUnit.Case, async: true
+
+  alias States.VideoStore
+  alias States.VideoStore.Video
 
   describe "States.VideoStore.renting/1" do
     test "updates the rental count" do

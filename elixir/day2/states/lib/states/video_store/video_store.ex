@@ -1,4 +1,5 @@
 defmodule States.VideoStore do
+  @moduledoc false
   def renting(video) do
     vid = log(video, "Renting #{video.title}")
     %{vid | times_rented: video.times_rented + 1}

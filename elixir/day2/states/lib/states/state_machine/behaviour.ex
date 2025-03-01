@@ -1,7 +1,7 @@
 defmodule States.StateMachine.Behavior do
+  @moduledoc false
   def fire(context, event) do
-    %{context | state: event[:to]}
-    |> activate(event)
+    activate(%{context | state: event[:to]}, event)
   end
 
   def fire(states, context, event_name) do
