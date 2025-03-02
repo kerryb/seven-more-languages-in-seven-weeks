@@ -26,7 +26,7 @@ defmodule States.StateMachine do
       |> Enum.uniq()
 
     quote do
-      def state_machine do
+      defp state_machine do
         unquote(states)
       end
 
