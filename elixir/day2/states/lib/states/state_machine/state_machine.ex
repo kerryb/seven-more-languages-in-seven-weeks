@@ -15,6 +15,7 @@ defmodule States.StateMachine do
     end
   end
 
+  # coveralls-ignore-start
   defmacro __before_compile__(env) do
     states = Module.get_attribute(env.module, :states)
 
@@ -47,4 +48,6 @@ defmodule States.StateMachine do
   def event_callbacks(names) do
     Enum.map(names, &event_callback/1)
   end
+
+  # coveralls-ignore-stop
 end
