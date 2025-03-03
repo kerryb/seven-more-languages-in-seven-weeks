@@ -57,6 +57,22 @@ defmodule States.VideoStore.VidStoreTest do
     end
   end
 
+  describe "States.VidStore.find/1" do
+    setup do
+      %{video: %Video{state: :lost, title: "XMen"}}
+    end
+
+    test "sets the state to :found", %{video: video} do
+      found_video = VidStore.find(video)
+      assert found_video.state == :found
+    end
+
+    test "logs the transition", %{video: video} do
+      found_video = VidStore.find(video)
+      assert found_video.log == ["Finding XMen"]
+    end
+  end
+
   describe "States.VidStore" do
     test "handles multiple transitions" do
       video =
