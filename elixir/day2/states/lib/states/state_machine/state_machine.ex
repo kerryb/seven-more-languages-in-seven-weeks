@@ -37,10 +37,22 @@ defmodule States.StateMachine do
 
   def event_callback(name) do
     callback = name
+    before_callback = :"before_#{name}"
+    after_callback = :"after_#{name}"
 
     quote do
       def unquote(name)(context) do
-        States.StateMachine.Behaviour.fire(state_machine(), context, unquote(callback))
+        if function_exported?(__MODULE__, unquote(before_callback), 0) do
+          apply(__MODULE__, unquote(before_callback), [])
+        end
+
+        result = States.StateMachine.Behaviour.fire(state_machine(), context, unquote(callback))
+
+        if function_exported?(__MODULE__, unquote(after_callback), 0) do
+          apply(__MODULE__, unquote(after_callback), [])
+        end
+
+        result
       end
     end
   end
