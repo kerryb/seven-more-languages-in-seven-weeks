@@ -1,0 +1,23 @@
+# 7MLI7W day three
+
+## Section
+
+```elixir
+ball_glove = fn ->
+  receive do
+    {:pitch, pitcher} -> send(pitcher, {:catch, self()})
+      after 1000  -> IO.puts "Bored now"
+  end
+end
+
+catcher = spawn(ball_glove)
+```
+
+```elixir
+send(catcher, {:pitch, self()})
+
+receive do
+  {:catch, _pid} ->
+    IO.puts("Caught it!")
+end
+```
