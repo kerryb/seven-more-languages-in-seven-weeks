@@ -6,7 +6,7 @@ defmodule States.VideoStoreTest do
 
   describe "States.VideoStore" do
     setup do
-      VideoStore.add({:xmen, %Video{title: "X men"}})
+      VideoStore.add(:xmen, %Video{title: "X men"})
     end
 
     test("Allows videos to be rented") do
@@ -27,6 +27,22 @@ defmodule States.VideoStoreTest do
       VideoStore.rent(:xmen)
       VideoStore.lose(:xmen)
       assert %States.Video{title: "X men", state: :found} = VideoStore.find(:xmen)
+    end
+
+    test "Retains data when the server crashes" do
+      VideoStore.rent(:xmen)
+      VideoStore.return(:xmen)
+
+      GenServer.stop(:video_store)
+      wait_for_server()
+
+      assert %States.Video{title: "X men", state: :rented, times_rented: 2} = VideoStore.rent(:xmen)
+    end
+  end
+
+  defp wait_for_server do
+    if is_nil(GenServer.whereis(:video_store)) do
+      wait_for_server()
     end
   end
 end
