@@ -1,0 +1,45 @@
+# 7MLI7W MiniKanren Day 1 with exKanren
+
+```elixir
+Mix.install([
+  {:exKanren, github: "lyons/ExKanren"}
+])
+```
+
+## Section
+
+```elixir
+use MiniKanren
+run_all([q]) do
+  eq(q, 1)
+end
+```
+
+```elixir
+use MiniKanren
+run_all([q]) do
+  eq(q, 1)
+  eq(q, 2)
+end
+```
+
+```elixir
+use MiniKanren
+run_all([q]) do
+  membero(q, [1, 2, 3])
+end
+```
+
+```elixir
+use MiniKanren
+run(2, [q]) do
+  membero(q, [1, 2, 3])
+end
+```
+
+```elixir
+use MiniKanren
+run(5, [q]) do
+  membero([1, 2, 3], q)
+end
+```
