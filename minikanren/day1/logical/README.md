@@ -1,22 +1,21 @@
-# logical
+# Day 1
 
-A Clojure library designed to ... well, that part is up to you.
+```clojure
+(run* [q]
+  (membero q [1 2 3])
+  (membero q [2 4 6]))
 
-## Usage
+#_ (2)
+```
 
-FIXME
+```clojure
+(run* [q]
+  (appendo [1 2 3] [4 5 6] q))
 
-## License
+#_ ((1 2 3 4 5 6))
 
-Copyright © 2025 FIXME
+(run* [q]
+  (appendo [1 2 3] q [1 2 3 4 5 6]))
 
-This program and the accompanying materials are made available under the
-terms of the Eclipse Public License 2.0 which is available at
-http://www.eclipse.org/legal/epl-2.0.
-
-This Source Code may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License, v. 2.0 are satisfied: GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or (at your
-option) any later version, with the GNU Classpath Exception which is available
-at https://www.gnu.org/software/classpath/license.html.
+#_ ((4 5 6))
+```
