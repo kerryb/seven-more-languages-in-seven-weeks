@@ -2,6 +2,8 @@
   (:require [clojure.test :refer :all]
             [logical.core :refer :all]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest turing-test ; not that one
+  (testing "turing finds all turing award winning scientists"
+    (is (=
+         '(:barbara-liskov :frances-allen :john-mccarthy :leslie-lamport)
+         (sort (turing-scientists))))))
