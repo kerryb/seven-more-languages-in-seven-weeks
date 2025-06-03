@@ -38,8 +38,114 @@ end
 ```
 
 ```elixir
-use MiniKanren
 run(5, [q]) do
   membero([1, 2, 3], q)
+end
+```
+
+```elixir
+defmodule Scientists do
+  def mano(p) do
+    conde do
+      [eq(p, :alan_turing)]
+      [eq(p, :leslie_lamport)]
+      [eq(p, :alonzo_church)]
+      [eq(p, :john_mccarthy)]
+    end
+  end
+
+  def womano(p) do
+    conde do
+      [eq(p, :grace_hopper)]
+      [eq(p, :leslie_lamport)]
+      [eq(p, :ada_lovelace)]
+      [eq(p, :barbara_liskov)]
+      [eq(p, :frances_allen)]
+    end
+  end
+
+  def vitalo(p, s) do
+    conde do
+      [eq(p, :alan_turing), eq(s, :dead)]
+      [eq(p, :grace_hopper), eq(s, :dead)]
+      [eq(p, :leslie_lamport), eq(s, :alive)]
+      [eq(p, :alonzo_church), eq(s, :dead)]
+      [eq(p, :ada_lovelace), eq(s, :dead)]
+      [eq(p, :barbara_liskov), eq(s, :alive)]
+      [eq(p, :frances_allen), eq(s, :alive)]
+      [eq(p, :john_mccarthy), eq(s, :dead)]
+    end
+  end
+
+  def turingo(p, y) do
+    conde do
+      [eq(p, :leslie_lamport), eq(y, 2013)]
+      [eq(p, :barbara_liskov), eq(y, 2008)]
+      [eq(p, :frances_allen), eq(y, 2006)]
+      [eq(p, :john_mccarthy), eq(y, 1971)]
+    end
+  end
+end
+```
+
+```elixir
+run_all([q]) do
+  Scientists.womano(q)
+end
+```
+
+```elixir
+run_all([q]) do
+  Scientists.womano(q)
+  Scientists.vitalo(q, :alive)
+end
+```
+
+```elixir
+run_all([q]) do
+  fresh([p, y]) do
+    Scientists.vitalo(p, :alive)
+    Scientists.turingo(p, y)
+    eq(q, {p, y})
+  end
+end
+```
+
+```elixir
+defmodule MyList do
+  def insideo(e, l) do
+    conde do
+      [
+        fresh([h, t]) do
+          conso(h, t, l)
+          eq(h, e)
+        end
+      ]
+      [
+        fresh([h, t]) do
+          conso(h, t, l)
+          insideo(e, t)
+        end
+      ]
+    end
+  end
+end
+```
+
+```elixir
+run_all([q]) do
+  MyList.insideo(q, [:a, :b, :c])
+end
+```
+
+```elixir
+run(3, [q]) do
+  MyList.insideo(:a, q)
+end
+```
+
+```elixir
+run_all([q]) do
+  MyList.insideo(:d, [:a, :b, :c, q])
 end
 ```
