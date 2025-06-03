@@ -1,0 +1,90 @@
+# 7MLI7W MiniKanren Day 1 with exKanren
+
+```elixir
+Mix.install([
+  {:exKanren, github: "lyons/ExKanren"}
+])
+```
+
+## Section
+
+```elixir
+use MiniKanren
+
+defmodule Scientists do
+  def mano(p) do
+    conde do
+      [eq(p, :alan_turing)]
+      [eq(p, :leslie_lamport)]
+      [eq(p, :alonzo_church)]
+      [eq(p, :john_mccarthy)]
+    end
+  end
+
+  def womano(p) do
+    conde do
+      [eq(p, :grace_hopper)]
+      [eq(p, :leslie_lamport)]
+      [eq(p, :ada_lovelace)]
+      [eq(p, :barbara_liskov)]
+      [eq(p, :frances_allen)]
+    end
+  end
+
+  def vitalo(p, s) do
+    conde do
+      [eq(p, :alan_turing), eq(s, :dead)]
+      [eq(p, :grace_hopper), eq(s, :dead)]
+      [eq(p, :leslie_lamport), eq(s, :alive)]
+      [eq(p, :alonzo_church), eq(s, :dead)]
+      [eq(p, :ada_lovelace), eq(s, :dead)]
+      [eq(p, :barbara_liskov), eq(s, :alive)]
+      [eq(p, :frances_allen), eq(s, :alive)]
+      [eq(p, :john_mccarthy), eq(s, :dead)]
+    end
+  end
+
+  def turingo(p, y) do
+    conde do
+      [eq(p, :leslie_lamport), eq(y, 2013)]
+      [eq(p, :barbara_liskov), eq(y, 2008)]
+      [eq(p, :frances_allen), eq(y, 2006)]
+      [eq(p, :john_mccarthy), eq(y, 1971)]
+    end
+  end
+
+  def languageo(p, l) do
+    conde do
+      [eq(p, :grace_hopper), eq(l, :cobol)]
+      [eq(p, :barbara_liskov), eq(l, :clu)]
+      [eq(p, :barbara_liskov), eq(l, :argus)]
+      [eq(p, :john_mccarthy), eq(l, :lisp)]
+    end
+  end
+
+  def systemo(p, s) do
+    conde do
+      [eq(p, :alan_turing), eq(s, :ace)]
+      [eq(p, :leslie_lamport), eq(s, :latex)]
+      [eq(p, :alonzo_church), eq(s, :lambda_calculus)]
+      [eq(p, :frances_allen), eq(s, :acs)]
+    end
+  end
+
+  def scientisto(p) do
+    conde do
+      [mano(p)]
+      [womano(p)]
+    end
+  end
+end
+```
+
+```elixir
+run_all([q]) do
+  fresh([y]) do
+    Scientists.scientisto(q)
+    Scientists.turingo(q, y)
+  end
+end
+```
