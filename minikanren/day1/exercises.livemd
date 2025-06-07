@@ -10,7 +10,35 @@ Mix.install([
 
 ```elixir
 use MiniKanren
+use MiniKanren.CLP.Tree
+```
 
+```elixir
+run_all([q]) do
+  membero(q, [1, 2, 3, 4])
+  membero(q, [2, 4, 6, 8])
+end
+```
+
+```elixir
+run_all([q]) do
+  appendo(q, [4, 5, 6], [1, 2, 3, 4, 5, 6])
+end
+```
+
+```elixir
+run_all([q]) do
+  appendo([1, 2, 3], q, [1, 2, 3, 4, 5, 6])
+end
+```
+
+```elixir
+run_all([q]) do
+  appendo([1, 2, 3], [4, 5, 6], q)
+end
+```
+
+```elixir
 defmodule Scientists do
   def mano(p) do
     conde do
@@ -81,10 +109,101 @@ end
 ```
 
 ```elixir
+import Scientists
+
 run_all([q]) do
   fresh([y]) do
-    Scientists.scientisto(q)
-    Scientists.turingo(q, y)
+    scientisto(q)
+    turingo(q, y)
   end
+end
+```
+
+```elixir
+defmodule FamilyTree do
+  @moduledoc """
+  Based on [Carl Barks’s duck family tree](https://en.wikipedia.org/wiki/Duck_family_(Disney)#Family_tree_by_Carl_Barks)
+  """
+  def parento(p, c) do
+    conde do
+      [eq(p, :luke), eq(c, :gladstone)]
+      [eq(p, :daphne), eq(c, :gladstone)]
+      [eq(p, :grandma), eq(c, :daphne)]
+      [eq(p, :grandma), eq(c, :quackmore)]
+      [eq(p, :quackmore), eq(c, :donald)]
+      [eq(p, :hortense), eq(c, :donald)]
+      [eq(p, :quackmore), eq(c, :thelma)]
+      [eq(p, :hortense), eq(c, :thelma)]
+      [eq(p, :thelma), eq(c, :huey)]
+      [eq(p, :thelma), eq(c, :dewey)]
+      [eq(p, :thelma), eq(c, :louie)]
+    end
+  end
+
+  def spouseo(x, y) do
+    conde do
+      [eq(x, :luke), eq(y, :daphne)]
+      [eq(x, :quackmore), eq(y, :hortense)]
+      [eq(x, :donald), eq(y, :daisy)]
+    end
+  end
+
+  def ancestoro(x, y) do
+    conde do
+      [parento(x, y)]
+
+      [
+        fresh([z]) do
+          parento(z, y)
+          ancestoro(x, z)
+        end
+      ]
+    end
+  end
+
+  def descendanto(x, y) do
+    conde do
+      [parento(y, x)]
+
+      [
+        fresh([z]) do
+          parento(y, z)
+          descendanto(x, z)
+        end
+      ]
+    end
+  end
+
+  def cousino(x, y) do
+    fresh [px, py, gp] do
+      parento(px, x)
+      parento(py, y)
+      parento(gp, px)
+      parento(gp, py)
+      neq(px, py)
+    end
+  end
+end
+```
+
+```elixir
+import FamilyTree
+```
+
+```elixir
+run_all([q]) do
+  ancestoro(q, :huey)
+end
+```
+
+```elixir
+run_all([q]) do
+  descendanto(q, :grandma)
+end
+```
+
+```elixir
+run_all CLP_Tree, [q] do
+  cousino q, :gladstone
 end
 ```
