@@ -207,3 +207,48 @@ run_all CLP_Tree, [q] do
   cousino q, :gladstone
 end
 ```
+
+```elixir
+defmodule Extendo do
+  def extendo(x, y, z) do
+    conde do
+      [
+        fresh [hx] do
+          conso(hx, [], x)
+          conso(hx, y, z)
+        end
+      ]
+
+      [
+        fresh([hx, tx, zz]) do
+          conso(hx, tx, x)
+          conso(hx, zz, z)
+          extendo(tx, y, zz)
+        end
+      ]
+    end
+  end
+end
+```
+
+```elixir
+import Extendo
+```
+
+```elixir
+run_all [q] do
+  extendo(q, [4, 5, 6], [1, 2, 3, 4, 5, 6])
+end
+```
+
+```elixir
+run_all [q] do
+  extendo([1, 2, 3], q, [1, 2, 3, 4, 5, 6])
+end
+```
+
+```elixir
+run_all [q] do
+  extendo([1, 2, 3], [4, 5, 6], q)
+end
+```
